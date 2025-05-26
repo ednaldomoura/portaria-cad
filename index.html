@@ -104,16 +104,30 @@
             table { font-size: 0.95rem; }
         }
         @media (max-width: 600px) {
-            .container { padding: 2px; }
-            h1 { font-size: 1.1rem; }
-            form { gap: 4px; }
+            .container { padding: 0 2px; margin: 0; border-radius: 0; box-shadow: none; }
+            h1 { font-size: 1rem; margin-bottom: 12px; }
+            form { gap: 2px; }
             .form-group, .photo-section { width: 100%; min-width: 0; }
-            .photo-section { flex-direction: column; align-items: flex-start; }
-            .photo-preview, video { width: 60px; height: 45px; }
-            table, th, td { font-size: 0.85rem; }
-            th, td { padding: 4px 2px; }
-            .btn { padding: 7px 10px; font-size: 0.95rem; }
+            .form-group label, .photo-section label { font-size: 0.95rem; }
+            .photo-section { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .photo-preview, video { width: 48px; height: 36px; }
+            input, select, .btn { font-size: 0.95rem; padding: 7px 8px; }
+            .btn { min-width: 80px; }
+            table, th, td { font-size: 0.8rem; }
+            th, td { padding: 3px 1px; }
             .action-btns { display: flex; flex-direction: column; gap: 2px; }
+            #registrosTable thead { display: none; }
+            #registrosTable tr { display: block; margin-bottom: 10px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9f9f9; }
+            #registrosTable td { display: flex; justify-content: space-between; align-items: center; border: none; border-bottom: 1px solid #e0e0e0; padding: 6px 8px; }
+            #registrosTable td:last-child { border-bottom: none; }
+            #registrosTable td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #2980b9;
+                margin-right: 8px;
+                min-width: 90px;
+                font-size: 0.85em;
+            }
         }
         @media (max-width: 430px) {
             .container { padding: 0; }
@@ -305,23 +319,26 @@
             const registros = getRegistros();
             const tbody = document.querySelector('#registrosTable tbody');
             tbody.innerHTML = '';
+            const labels = [
+                'Nome', 'Documento', 'Autorizado', 'Data', 'Entrada', 'Saída', 'Empresa', 'Serviço', 'Arquivo', 'Foto Frente', 'Foto Traseira', 'Apartamento', 'Ações'
+            ];
             registros.forEach((r, i) => {
                 const darBaixaBtn = !r.horaSaida ? `<button class="btn" style="background:#f39c12" onclick="darBaixa(${i})">Dar Baixa</button>` : '';
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${r.nome}</td>
-                    <td>${r.documento}</td>
-                    <td>${r.autorizado}</td>
-                    <td>${r.data}</td>
-                    <td>${r.horaEntrada}</td>
-                    <td>${r.horaSaida || '-'}</td>
-                    <td>${r.empresa}</td>
-                    <td>${r.servico}</td>
-                    <td>${r.arquivo ? `<a href='${r.arquivo}' target='_blank' style='color:#2980b9;font-weight:bold;'>Ver</a>` : '-'}</td>
-                    <td>${r.fotoFrente ? `<img src='${r.fotoFrente}' width='40' style='cursor:zoom-in' onclick='ampliarFoto("${r.fotoFrente}")'>` : '-'}</td>
-                    <td>${r.fotoTraseira ? `<img src='${r.fotoTraseira}' width='40' style='cursor:zoom-in' onclick='ampliarFoto("${r.fotoTraseira}")'>` : '-'}</td>
-                    <td>${r.apartamento || '-'}</td>
-                    <td class="action-btns">
+                    <td data-label="Nome">${r.nome}</td>
+                    <td data-label="Documento">${r.documento}</td>
+                    <td data-label="Autorizado">${r.autorizado}</td>
+                    <td data-label="Data">${r.data}</td>
+                    <td data-label="Entrada">${r.horaEntrada}</td>
+                    <td data-label="Saída">${r.horaSaida || '-'}</td>
+                    <td data-label="Empresa">${r.empresa}</td>
+                    <td data-label="Serviço">${r.servico}</td>
+                    <td data-label="Arquivo">${r.arquivo ? `<a href='${r.arquivo}' target='_blank' style='color:#2980b9;font-weight:bold;'>Ver</a>` : '-'}</td>
+                    <td data-label="Foto Frente">${r.fotoFrente ? `<img src='${r.fotoFrente}' width='40' style='cursor:zoom-in' onclick='ampliarFoto(\"${r.fotoFrente}\")'>` : '-'}</td>
+                    <td data-label="Foto Traseira">${r.fotoTraseira ? `<img src='${r.fotoTraseira}' width='40' style='cursor:zoom-in' onclick='ampliarFoto(\"${r.fotoTraseira}\")'>` : '-'}</td>
+                    <td data-label="Apartamento">${r.apartamento || '-'}</td>
+                    <td data-label="Ações" class="action-btns">
                         <button class="btn" style="background:#27ae60" onclick="editarRegistro(${i})">Editar</button>
                         <button class="btn" style="background:#c0392b" onclick="excluirRegistro(${i})">Excluir</button>
                         ${darBaixaBtn}
