@@ -1,513 +1,545 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Prestador de Serviço - Portaria</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(120deg, #2980b9, #6dd5fa);
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-            padding: 32px 24px 24px 24px;
-        }
-        h1 {
-            text-align: center;
-            color: #2980b9;
-            margin-bottom: 24px;
-        }
-        form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-        .form-group {
-            flex: 1 1 220px;
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #333;
-        }
-        input, select {
-            padding: 8px;
-            border: 1px solid #b0bec5;
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-        .photo-section {
-            flex: 1 1 220px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-        .photo-preview {
-            width: 120px;
-            height: 90px;
-            background: #e3e3e3;
-            border-radius: 8px;
-            object-fit: cover;
-            margin-bottom: 4px;
-        }
-        .btn {
-            background: #2980b9;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 18px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn:hover {
-            background: #1c5d8c;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 16px;
-        }
-        th, td {
-            padding: 10px 8px;
-            border-bottom: 1px solid #e0e0e0;
-            text-align: center;
-        }
-        th {
-            background: #f5f5f5;
-            color: #2980b9;
-        }
-        .action-btns button {
-            margin: 0 2px;
-        }
-        @media (max-width: 900px) {
-            .container { padding: 8px; }
-            form { flex-direction: column; gap: 8px; }
-            .form-group, .photo-section { width: 100%; min-width: 0; }
-            .photo-section { flex-direction: row; justify-content: flex-start; align-items: center; gap: 8px; }
-            .photo-section label { min-width: 90px; margin-bottom: 0; }
-            .photo-preview, video { width: 80px; height: 60px; }
-            table { font-size: 0.95rem; }
-        }
-        @media (max-width: 600px) {
-            .container { padding: 0 2px; margin: 0; border-radius: 0; box-shadow: none; }
-            h1 { font-size: 1rem; margin-bottom: 12px; }
-            form { gap: 2px; }
-            .form-group, .photo-section { width: 100%; min-width: 0; }
-            .form-group label, .photo-section label { font-size: 0.95rem; }
-            .photo-section { flex-direction: column; align-items: flex-start; gap: 4px; }
-            .photo-preview, video { width: 48px; height: 36px; }
-            input, select, .btn { font-size: 0.95rem; padding: 7px 8px; }
-            .btn { min-width: 80px; }
-            table, th, td { font-size: 0.8rem; }
-            th, td { padding: 3px 1px; }
-            .action-btns { display: flex; flex-direction: column; gap: 2px; }
-            #registrosTable thead { display: none; }
-            #registrosTable tr { display: block; margin-bottom: 10px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9f9f9; }
-            #registrosTable td { display: flex; justify-content: space-between; align-items: center; border: none; border-bottom: 1px solid #e0e0e0; padding: 6px 8px; }
-            #registrosTable td:last-child { border-bottom: none; }
-            #registrosTable td:before {
-                content: attr(data-label);
-                font-weight: bold;
-                color: #2980b9;
-                margin-right: 8px;
-                min-width: 90px;
-                font-size: 0.85em;
-            }
-        }
-        @media (max-width: 430px) {
-            .container { padding: 0; }
-            h1 { font-size: 0.95rem; }
-            .btn { font-size: 0.85rem; padding: 6px 6px; }
-            .photo-preview, video { width: 40px; height: 30px; }
-            table, th, td { font-size: 0.7rem; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Prestador de Serviço</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      padding: 30px 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #2d3e50;
+      margin-bottom: 30px;
+    }
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 30px;
+      justify-content: space-between;
+    }
+    .form-group {
+      flex: 1 1 220px;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #34495e;
+    }
+    input, select {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+      background: #f9f9f9;
+    }
+    .photo-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .photo-preview {
+      width: 120px;
+      height: 90px;
+      object-fit: cover;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #eee;
+      margin-top: 5px;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    button, .btn {
+      background: #1976d2;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      font-size: 1em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover, .btn:hover {
+      background: #125ea2;
+    }
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .search-bar input {
+      flex: 1 1 200px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #fff;
+    }
+    th, td {
+      padding: 8px 6px;
+      border: 1px solid #e0e0e0;
+      text-align: left;
+      font-size: 0.98em;
+    }
+    th {
+      background: #1976d2;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background: #f4f6f8;
+    }
+    .btn-baixa {
+      background: #e53935;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.95em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-baixa:hover {
+      background: #b71c1c;
+    }
+    .img-ampliada-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .img-ampliada-bg img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 2px 20px #000a;
+      background: #fff;
+      padding: 8px;
+    }
+    .img-ampliada-bg .fechar {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2em;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+    }
+    @media (max-width: 800px) {
+      .container { padding: 10px 2px; }
+      form { flex-direction: column; gap: 10px; }
+      .form-group { min-width: 100%; }
+      .search-bar { flex-direction: column; gap: 5px; }
+      table, th, td { font-size: 0.92em; }
+      .photo-preview, video { width: 100% !important; height: auto !important; }
+      #loginModal > div { flex-direction: column !important; gap: 10px !important; }
+      #loginModal form { min-width: 90vw !important; }
+    }
+    @media (max-width: 500px) {
+      .container { padding: 2px 0; }
+      h1 { font-size: 1.2em; }
+      button, .btn { font-size: 0.95em; padding: 8px 10px; }
+      th, td { padding: 4px 2px; }
+      #loginModal form { min-width: 98vw !important; padding: 10px 2px !important; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cadastro de Prestador de Serviço - Portaria</h1>
-        <form id="serviceForm">
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" required>
-            </div>
-            <div class="form-group">
-                <label for="documento">Documento</label>
-                <input type="text" id="documento" required>
-            </div>
-            <div class="form-group">
-                <label for="autorizado">Quem autorizou</label>
-                <input type="text" id="autorizado" required>
-            </div>
-            <div class="form-group">
-                <label for="data">Data</label>
-                <input type="date" id="data" required>
-            </div>
-            <div class="form-group">
-                <label for="horaEntrada">Hora Entrada</label>
-                <input type="time" id="horaEntrada" required>
-            </div>
-            <div class="form-group">
-                <label for="horaSaida">Hora Saída</label>
-                <input type="time" id="horaSaida">
-            </div>
-            <div class="form-group">
-                <label for="empresa">Empresa</label>
-                <input type="text" id="empresa" required>
-            </div>
-            <div class="form-group">
-                <label for="servico">Serviço</label>
-                <input type="text" id="servico" required>
-            </div>
-            <div class="form-group">
-                <label for="arquivo">Arquivo</label>
-                <input type="file" id="arquivo" accept="application/pdf,image/*" onchange="mostrarNomeArquivo()">
-                <span id="arquivoSelecionado" style="font-size:0.95em;color:#2980b9;margin-top:2px;word-break:break-all;"></span>
-            </div>
-            <div class="form-group">
-                <label for="apartamento">Apartamento</label>
-                <input type="text" id="apartamento" required placeholder="Digite o número do apartamento">
-            </div>
-            <div class="photo-section">
-                <label>Foto Frente</label>
-                <video id="videoFrente" width="120" height="90" autoplay style="display:none;"></video>
-                <img id="fotoFrentePreview" class="photo-preview" src="" alt="Foto Frente">
-                <button type="button" class="btn" onclick="capturarFoto('frente')">Tirar Foto Frente</button>
-            </div>
-            <div class="photo-section">
-                <label>Foto Traseira</label>
-                <video id="videoTraseira" width="120" height="90" autoplay style="display:none;"></video>
-                <img id="fotoTraseiraPreview" class="photo-preview" src="" alt="Foto Traseira">
-                <button type="button" class="btn" onclick="capturarFoto('traseira')">Tirar Foto Traseira</button>
-            </div>
-            <div class="form-group" style="align-self: flex-end;">
-                <button type="submit" class="btn" id="salvarBtn">Salvar</button>
-                <button type="button" class="btn" id="cancelarBtn" style="display:none; background:#b0bec5; color:#333;">Cancelar</button>
-            </div>
-        </form>
-        <table id="registrosTable">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Documento</th>
-                    <th>Autorizado</th>
-                    <th>Data</th>
-                    <th>Entrada</th>
-                    <th>Saída</th>
-                    <th>Empresa</th>
-                    <th>Serviço</th>
-                    <th>Arquivo</th>
-                    <th>Foto Frente</th>
-                    <th>Foto Traseira</th>
-                    <th>Apartamento</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Registros serão inseridos aqui -->
-            </tbody>
-        </table>
+  <div class="container">
+    <h1>Cadastro de Prestador de Serviço</h1>
+    <form id="cadastroForm" autocomplete="off">
+      <div class="form-group">
+        <label for="apartamento">Apartamento</label>
+        <input type="text" id="apartamento" required>
+      </div>
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" required>
+      </div>
+      <div class="form-group">
+        <label for="documento">Documento</label>
+        <input type="text" id="documento" required>
+      </div>
+      <div class="form-group">
+        <label for="autorizador">Nome de quem autoriza</label>
+        <input type="text" id="autorizador" required>
+      </div>
+      <div class="form-group">
+        <label for="entrada">Data/Hora Entrada</label>
+        <input type="datetime-local" id="entrada" required>
+      </div>
+      <div class="form-group">
+        <label for="saida">Data/Hora Saída</label>
+        <input type="datetime-local" id="saida">
+      </div>
+      <div class="form-group">
+        <label for="empresa">Empresa</label>
+        <input type="text" id="empresa" required>
+      </div>
+      <div class="form-group">
+        <label for="servico">Serviço</label>
+        <input type="text" id="servico" required>
+      </div>
+      <div class="form-group photo-section">
+        <label>Foto Frente</label>
+        <video id="videoFrente" width="120" height="90" autoplay playsinline style="display:none;"></video>
+        <img id="fotoFrentePreview" class="photo-preview" src="" alt="Foto Frente" onclick="ampliarFoto(this)">
+        <div class="actions">
+          <button type="button" onclick="abrirCamera('frente')">Abrir Câmera</button>
+          <button type="button" onclick="tirarFoto('frente')">Tirar Foto</button>
+          <input type="file" accept="image/*" style="display:none;" id="fileFrente" onchange="carregarArquivoFoto(event, 'frente')">
+          <button type="button" onclick="document.getElementById('fileFrente').click()">Arquivo</button>
+        </div>
+      </div>
+      <div class="form-group photo-section">
+        <label>Foto Verso</label>
+        <video id="videoVerso" width="120" height="90" autoplay playsinline style="display:none;"></video>
+        <img id="fotoVersoPreview" class="photo-preview" src="" alt="Foto Verso" onclick="ampliarFoto(this)">
+        <div class="actions">
+          <button type="button" onclick="abrirCamera('verso')">Abrir Câmera</button>
+          <button type="button" onclick="tirarFoto('verso')">Tirar Foto</button>
+          <input type="file" accept="image/*" style="display:none;" id="fileVerso" onchange="carregarArquivoFoto(event, 'verso')">
+          <button type="button" onclick="document.getElementById('fileVerso').click()">Arquivo</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cameraSelect">Câmera</label>
+        <select id="cameraSelect"></select>
+      </div>
+      <div class="form-group" style="align-self: flex-end;">
+        <button type="submit">Cadastrar</button>
+      </div>
+    </form>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar por nome ou documento...">
+      <button type="button" onclick="buscarPorNomeOuDocumento()">Buscar</button>
+      <button type="button" onclick="exportarCSV()">Exportar CSV</button>
+      <button type="button" onclick="exportarPDF()">Exportar PDF</button>
+      <button type="button" onclick="salvarPrestadores()" style="background:#388e3c;">Salvar Registros</button>
+      <button type="button" onclick="abrirRelatorio()" style="background:#ff9800;">Relatório</button>
     </div>
-    <script>
-        // Utilidades para manipulação de localStorage
-        function getRegistros() {
-            return JSON.parse(localStorage.getItem('registrosPortaria') || '[]');
-        }
-        function setRegistros(registros) {
-            localStorage.setItem('registrosPortaria', JSON.stringify(registros));
-        }
+    <div style="overflow-x:auto;">
+      <table id="tabelaPrestadores">
+        <thead>
+          <tr>
+            <th>Apto</th>
+            <th>Nome</th>
+            <th>Documento</th>
+            <th>Autorizador</th>
+            <th>Entrada</th>
+            <th>Saída</th>
+            <th>Empresa</th>
+            <th>Serviço</th>
+            <th>Foto Frente</th>
+            <th>Foto Verso</th>
+            <th>Baixa</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    let streamAtual = null;
+    let facingModeAtual = 'environment';
+    let cameras = [];
+    let fotoFrente = '';
+    let fotoVerso = '';
+    let prestadores = [];
 
-        // Variáveis de controle
-        let editIndex = null;
-        let fotoFrente = '';
-        let fotoTraseira = '';
-        let streamFrente = null;
-        let streamTraseira = null;
+    // Função para obter a chave de storage do usuário
+    function storageKey() {
+      return 'prestadores';
+    }
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            renderRegistros();
-            document.getElementById('serviceForm').addEventListener('submit', salvarRegistro);
-            document.getElementById('cancelarBtn').addEventListener('click', cancelarEdicao);
-            iniciarCamera('frente');
-            iniciarCamera('traseira');
+    // Salvar no localStorage
+    function salvarPrestadores() {
+      localStorage.setItem(storageKey(), JSON.stringify(prestadores));
+    }
+
+    // Carregar do localStorage
+    function carregarPrestadores() {
+      const dados = localStorage.getItem(storageKey());
+      prestadores = dados ? JSON.parse(dados) : [];
+    }
+
+    // Carregar câmeras disponíveis
+    async function carregarCameras() {
+      const select = document.getElementById('cameraSelect');
+      select.innerHTML = '';
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        cameras = devices.filter(d => d.kind === 'videoinput');
+        // Prioriza traseira (environment) no topo da lista
+        cameras.sort((a, b) => {
+          if (a.label.toLowerCase().includes('back') || a.label.toLowerCase().includes('traseira') || a.label.toLowerCase().includes('environment')) return -1;
+          if (b.label.toLowerCase().includes('back') || b.label.toLowerCase().includes('traseira') || b.label.toLowerCase().includes('environment')) return 1;
+          return 0;
         });
+        cameras.forEach((cam, i) => {
+          const opt = document.createElement('option');
+          opt.value = cam.deviceId;
+          opt.text = cam.label || `Câmera ${i+1}`;
+          select.appendChild(opt);
+        });
+        // Seleciona automaticamente a traseira se existir
+        const traseira = cameras.find(cam => cam.label.toLowerCase().includes('back') || cam.label.toLowerCase().includes('traseira') || cam.label.toLowerCase().includes('environment'));
+        if (traseira) select.value = traseira.deviceId;
+      } catch (e) {
+        select.innerHTML = '<option>Não disponível</option>';
+      }
+    }
 
-        // Iniciar câmera
-        function iniciarCamera(tipo) {
-            const video = document.getElementById(tipo === 'frente' ? 'videoFrente' : 'videoTraseira');
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(stream => {
-                        video.srcObject = stream;
-                        if (tipo === 'frente') streamFrente = stream;
-                        else streamTraseira = stream;
-                    });
-            }
-        }
+    // Abrir câmera
+    async function abrirCamera(tipo) {
+      if (streamAtual) {
+        streamAtual.getTracks().forEach(track => track.stop());
+      }
+      const select = document.getElementById('cameraSelect');
+      const deviceId = select.value;
+      let constraints = {};
+      if (deviceId) {
+        constraints = { video: { deviceId: { exact: deviceId } } };
+      } else {
+        // fallback para traseira em mobile
+        constraints = { video: { facingMode: { exact: 'environment' } } };
+      }
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        streamAtual = stream;
+        const video = tipo === 'frente' ? document.getElementById('videoFrente') : document.getElementById('videoVerso');
+        video.srcObject = stream;
+        video.style.display = 'block';
+        video.play();
+      } catch (e) {
+        alert('Erro ao acessar a câmera!');
+      }
+    }
 
-        // Capturar foto
-        function capturarFoto(tipo) {
-            const video = document.getElementById(tipo === 'frente' ? 'videoFrente' : 'videoTraseira');
-            const canvas = document.createElement('canvas');
-            canvas.width = 120;
-            canvas.height = 90;
-            canvas.getContext('2d').drawImage(video, 0, 0, 120, 90);
-            const dataUrl = canvas.toDataURL('image/png');
-            if (tipo === 'frente') {
-                fotoFrente = dataUrl;
-                document.getElementById('fotoFrentePreview').src = dataUrl;
-            } else {
-                fotoTraseira = dataUrl;
-                document.getElementById('fotoTraseiraPreview').src = dataUrl;
-            }
-        }
+    // Tirar foto
+    function tirarFoto(tipo) {
+      const video = tipo === 'frente' ? document.getElementById('videoFrente') : document.getElementById('videoVerso');
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth || 120;
+      canvas.height = video.videoHeight || 90;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg');
+      if (tipo === 'frente') {
+        fotoFrente = dataUrl;
+        document.getElementById('fotoFrentePreview').src = dataUrl;
+      } else {
+        fotoVerso = dataUrl;
+        document.getElementById('fotoVersoPreview').src = dataUrl;
+      }
+      video.style.display = 'none';
+      if (streamAtual) {
+        streamAtual.getTracks().forEach(track => track.stop());
+        streamAtual = null;
+      }
+    }
 
-        // Salvar ou editar registro
-        function salvarRegistro(e) {
-            e.preventDefault();
-            const arquivoInput = document.getElementById('arquivo');
-            let arquivoUrl = '';
-            if (arquivoInput.files && arquivoInput.files[0]) {
-                arquivoUrl = URL.createObjectURL(arquivoInput.files[0]);
-            } else if (editIndex !== null) {
-                // Mantém o arquivo anterior ao editar se não for alterado
-                arquivoUrl = getRegistros()[editIndex].arquivo || '';
-            }
-            const registro = {
-                nome: document.getElementById('nome').value,
-                documento: document.getElementById('documento').value,
-                autorizado: document.getElementById('autorizado').value,
-                data: document.getElementById('data').value,
-                horaEntrada: document.getElementById('horaEntrada').value,
-                horaSaida: document.getElementById('horaSaida').value,
-                empresa: document.getElementById('empresa').value,
-                servico: document.getElementById('servico').value,
-                apartamento: document.getElementById('apartamento').value,
-                fotoFrente,
-                fotoTraseira,
-                arquivo: arquivoUrl
-            };
-            let registros = getRegistros();
-            if (editIndex !== null) {
-                registros[editIndex] = registro;
-            } else {
-                registros.push(registro);
-            }
-            setRegistros(registros);
-            renderRegistros();
-            limparFormulario();
-        }
+    // Renderizar tabela
+    function renderizarTabela(filtro = '') {
+      const tbody = document.querySelector('#tabelaPrestadores tbody');
+      tbody.innerHTML = '';
+      let lista = prestadores;
+      if (filtro) {
+        const f = filtro.toLowerCase();
+        lista = lista.filter(p => p.nome.toLowerCase().includes(f) || p.documento.toLowerCase().includes(f));
+      }
+      lista.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${p.apartamento}</td>
+          <td>${p.nome}</td>
+          <td>${p.documento}</td>
+          <td>${p.autorizador}</td>
+          <td>${p.entrada}</td>
+          <td>${p.saida || ''}</td>
+          <td>${p.empresa}</td>
+          <td>${p.servico}</td>
+          <td>${p.fotoFrente ? `<img src="${p.fotoFrente}" style="width:40px;height:30px;object-fit:cover;border-radius:3px;cursor:pointer;" onclick="ampliarFoto(this)">` : ''}</td>
+          <td>${p.fotoVerso ? `<img src="${p.fotoVerso}" style="width:40px;height:30px;object-fit:cover;border-radius:3px;cursor:pointer;" onclick="ampliarFoto(this)">` : ''}</td>
+          <td>${!p.saida ? `<button class='btn-baixa' onclick='darBaixa(${idx})'>Dar Baixa</button>` : ''}
+              <button class='btn' style='background:#1976d2;margin-left:4px;' onclick='editarPrestador(${idx})'>Editar</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
 
-        // Renderizar tabela
-        function renderRegistros() {
-            const registros = getRegistros();
-            const tbody = document.querySelector('#registrosTable tbody');
-            tbody.innerHTML = '';
-            const labels = [
-                'Nome', 'Documento', 'Autorizado', 'Data', 'Entrada', 'Saída', 'Empresa', 'Serviço', 'Arquivo', 'Foto Frente', 'Foto Traseira', 'Apartamento', 'Ações'
-            ];
-            registros.forEach((r, i) => {
-                const darBaixaBtn = !r.horaSaida ? `<button class="btn" style="background:#f39c12" onclick="darBaixa(${i})">Dar Baixa</button>` : '';
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td data-label="Nome">${r.nome}</td>
-                    <td data-label="Documento">${r.documento}</td>
-                    <td data-label="Autorizado">${r.autorizado}</td>
-                    <td data-label="Data">${r.data}</td>
-                    <td data-label="Entrada">${r.horaEntrada}</td>
-                    <td data-label="Saída">${r.horaSaida || '-'}</td>
-                    <td data-label="Empresa">${r.empresa}</td>
-                    <td data-label="Serviço">${r.servico}</td>
-                    <td data-label="Arquivo">${r.arquivo ? `<a href='${r.arquivo}' target='_blank' style='color:#2980b9;font-weight:bold;'>Ver</a>` : '-'}</td>
-                    <td data-label="Foto Frente">${r.fotoFrente ? `<img src='${r.fotoFrente}' width='40' style='cursor:zoom-in' onclick='ampliarFoto(\"${r.fotoFrente}\")'>` : '-'}</td>
-                    <td data-label="Foto Traseira">${r.fotoTraseira ? `<img src='${r.fotoTraseira}' width='40' style='cursor:zoom-in' onclick='ampliarFoto(\"${r.fotoTraseira}\")'>` : '-'}</td>
-                    <td data-label="Apartamento">${r.apartamento || '-'}</td>
-                    <td data-label="Ações" class="action-btns">
-                        <button class="btn" style="background:#27ae60" onclick="editarRegistro(${i})">Editar</button>
-                        <button class="btn" style="background:#c0392b" onclick="excluirRegistro(${i})">Excluir</button>
-                        ${darBaixaBtn}
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
+    // Dar baixa
+    function darBaixa(idx) {
+      const data = new Date();
+      prestadores[idx].saida = data.toISOString().slice(0,16).replace('T',' ');
+      salvarPrestadores();
+      renderizarTabela(document.getElementById('searchInput').value);
+    }
 
-        // Editar registro
-        window.editarRegistro = function(index) {
-            const registros = getRegistros();
-            const r = registros[index];
-            document.getElementById('nome').value = r.nome;
-            document.getElementById('documento').value = r.documento;
-            document.getElementById('autorizado').value = r.autorizado;
-            document.getElementById('data').value = r.data;
-            document.getElementById('horaEntrada').value = r.horaEntrada;
-            document.getElementById('horaSaida').value = r.horaSaida;
-            document.getElementById('empresa').value = r.empresa;
-            document.getElementById('servico').value = r.servico;
-            document.getElementById('apartamento').value = r.apartamento;
-            document.getElementById('fotoFrentePreview').src = r.fotoFrente;
-            document.getElementById('fotoTraseiraPreview').src = r.fotoTraseira;
-            document.getElementById('arquivo').value = '';
-            document.getElementById('arquivoSelecionado').textContent = '';
-            fotoFrente = r.fotoFrente;
-            fotoTraseira = r.fotoTraseira;
-            editIndex = index;
-            document.getElementById('salvarBtn').textContent = 'Atualizar';
-            document.getElementById('cancelarBtn').style.display = 'inline-block';
-        }
+    // Cadastrar prestador
+    document.getElementById('cadastroForm').onsubmit = function(e) {
+      e.preventDefault();
+      const novo = {
+        apartamento: document.getElementById('apartamento').value,
+        nome: document.getElementById('nome').value,
+        documento: document.getElementById('documento').value,
+        autorizador: document.getElementById('autorizador').value,
+        entrada: document.getElementById('entrada').value.replace('T',' '),
+        saida: document.getElementById('saida').value ? document.getElementById('saida').value.replace('T',' ') : '',
+        empresa: document.getElementById('empresa').value,
+        servico: document.getElementById('servico').value,
+        fotoFrente,
+        fotoVerso
+      };
+      prestadores.push(novo);
+      salvarPrestadores();
+      renderizarTabela(document.getElementById('searchInput').value);
+      document.getElementById('cadastroForm').reset();
+      fotoFrente = '';
+      fotoVerso = '';
+      document.getElementById('fotoFrentePreview').src = '';
+      document.getElementById('fotoVersoPreview').src = '';
+      // Limpa campos de data/hora para evitar valores antigos
+      document.getElementById('entrada').value = '';
+      document.getElementById('saida').value = '';
+    };
 
-        // Excluir registro
-        window.excluirRegistro = function(index) {
-            if (confirm('Deseja realmente excluir este registro?')) {
-                let registros = getRegistros();
-                registros.splice(index, 1);
-                setRegistros(registros);
-                renderRegistros();
-                limparFormulario();
-            }
-        }
+    // Busca
+    document.getElementById('searchInput').oninput = function() {
+      renderizarTabela(this.value);
+    };
 
-        // Dar baixa em registro
-        window.darBaixa = function(index) {
-            let registros = getRegistros();
-            const agora = new Date();
-            const hora = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-            registros[index].horaSaida = hora;
-            setRegistros(registros);
-            renderRegistros();
-        }
+    // Botão de busca
+    function buscarPorNomeOuDocumento() {
+      const valor = document.getElementById('searchInput').value;
+      renderizarTabela(valor);
+    }
 
-        // Cancelar edição
-        function cancelarEdicao() {
-            limparFormulario();
-        }
+    // Exportar CSV
+    function exportarCSV() {
+      let csv = 'Apartamento,Nome,Documento,Autorizador,Entrada,Saida,Empresa,Servico\n';
+      prestadores.forEach(p => {
+        csv += `"${p.apartamento}","${p.nome}","${p.documento}","${p.autorizador}","${p.entrada}","${p.saida}","${p.empresa}","${p.servico}"
+`;
+      });
+      const blob = new Blob([csv], {type: 'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'prestadores.csv';
+      a.click();
+    }
 
-        // Limpar formulário
-        function limparFormulario() {
-            document.getElementById('serviceForm').reset();
-            document.getElementById('fotoFrentePreview').src = '';
-            document.getElementById('fotoTraseiraPreview').src = '';
-            fotoFrente = '';
-            fotoTraseira = '';
-            editIndex = null;
-            document.getElementById('salvarBtn').textContent = 'Salvar';
-            document.getElementById('cancelarBtn').style.display = 'none';
-            document.getElementById('arquivo').value = '';
-            document.getElementById('arquivoSelecionado').textContent = '';
-        }
+    // Exportar PDF
+    function exportarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(12);
+      doc.text('Prestadores de Serviço', 10, 10);
+      let y = 20;
+      prestadores.forEach((p, i) => {
+        doc.text(`${i+1}. ${p.nome} | ${p.documento} | ${p.apartamento} | ${p.entrada} | ${p.saida || ''}`, 10, y);
+        y += 8;
+        if (y > 270) { doc.addPage(); y = 20; }
+      });
+      doc.save('prestadores.pdf');
+    }
 
-        // Mostrar nome do arquivo selecionado
-        function mostrarNomeArquivo() {
-            const input = document.getElementById('arquivo');
-            const span = document.getElementById('arquivoSelecionado');
-            if (input.files && input.files[0]) {
-                span.textContent = input.files[0].name;
-            } else {
-                span.textContent = '';
-            }
-        }
+    // Ampliar foto
+    function ampliarFoto(img) {
+      if (!img.src) return;
+      const bg = document.createElement('div');
+      bg.className = 'img-ampliada-bg';
+      bg.innerHTML = `<button class='fechar' onclick='this.parentNode.remove()' title='Fechar'>&times;</button><img src='${img.src}' alt='Foto Ampliada'>`;
+      document.body.appendChild(bg);
+      bg.onclick = function(e) { if (e.target === bg) bg.remove(); };
+    }
 
-        // Exportar para CSV
-        function exportarCSV() {
-            const registros = getRegistros();
-            if (!registros.length) return alert('Nenhum registro para exportar!');
-            const header = ['Nome','Documento','Autorizado','Data','Entrada','Saída','Empresa','Serviço'];
-            const rows = registros.map(r => [
-                r.nome, r.documento, r.autorizado, r.data, r.horaEntrada, r.horaSaida || '', r.empresa, r.servico
-            ]);
-            let csv = header.join(';') + '\n';
-            rows.forEach(row => {
-                csv += row.map(v => '"' + (v || '') + '"').join(';') + '\n';
-            });
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'registros_portaria.csv';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+    // Carregar arquivo de foto
+    function carregarArquivoFoto(event, tipo) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        if (tipo === 'frente') {
+          fotoFrente = e.target.result;
+          document.getElementById('fotoFrentePreview').src = fotoFrente;
+        } else {
+          fotoVerso = e.target.result;
+          document.getElementById('fotoVersoPreview').src = fotoVerso;
         }
+      };
+      reader.readAsDataURL(file);
+    }
 
-        // Exportar para PDF
-        function exportarPDF() {
-            const registros = getRegistros();
-            if (!registros.length) return alert('Nenhum registro para exportar!');
-            const janela = window.open('', '', 'width=900,height=700');
-            let html = `<h2>Relatório de Prestadores de Serviço</h2><table border='1' cellpadding='6' cellspacing='0' style='width:100%;border-collapse:collapse;font-family:Arial;font-size:12px;'>`;
-            html += `<tr><th>Nome</th><th>Documento</th><th>Autorizado</th><th>Data</th><th>Entrada</th><th>Saída</th><th>Empresa</th><th>Serviço</th></tr>`;
-            registros.forEach(r => {
-                html += `<tr><td>${r.nome}</td><td>${r.documento}</td><td>${r.autorizado}</td><td>${r.data}</td><td>${r.horaEntrada}</td><td>${r.horaSaida || ''}</td><td>${r.empresa}</td><td>${r.servico}</td></tr>`;
-            });
-            html += '</table>';
-            janela.document.write('<html><head><title>Relatório</title></head><body>' + html + '</body></html>');
-            janela.document.close();
-            janela.print();
-        }
+    // Função para abrir relatório em nova janela
+    function abrirRelatorio() {
+      let rel = window.open('', '_blank');
+      rel.document.write('<html><head><title>Relatório de Prestadores</title><style>body{font-family:sans-serif;}table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ccc;padding:6px;}th{background:#1976d2;color:#fff;}tr:nth-child(even){background:#f4f6f8;}</style></head><body>');
+      rel.document.write('<h2>Relatório de Prestadores de Serviço</h2>');
+      rel.document.write('<table><thead><tr><th>Apto</th><th>Nome</th><th>Documento</th><th>Autorizador</th><th>Entrada</th><th>Saída</th><th>Empresa</th><th>Serviço</th></tr></thead><tbody>');
+      prestadores.forEach(p => {
+        rel.document.write(`<tr><td>${p.apartamento}</td><td>${p.nome}</td><td>${p.documento}</td><td>${p.autorizador}</td><td>${p.entrada}</td><td>${p.saida || ''}</td><td>${p.empresa}</td><td>${p.servico}</td></tr>`);
+      });
+      rel.document.write('</tbody></table></body></html>');
+      rel.document.close();
+    }
 
-        // Relatórios salvos (visualização)
-        function mostrarRelatorio() {
-            const registros = getRegistros();
-            if (!registros.length) return alert('Nenhum registro salvo!');
-            let relatorio = '<h2>Relatório de Prestadores de Serviço</h2>';
-            relatorio += '<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;font-family:Arial;font-size:12px;">';
-            relatorio += '<tr><th>Nome</th><th>Documento</th><th>Autorizado</th><th>Data</th><th>Entrada</th><th>Saída</th><th>Empresa</th><th>Serviço</th></tr>';
-            registros.forEach(r => {
-                relatorio += `<tr><td>${r.nome}</td><td>${r.documento}</td><td>${r.autorizado}</td><td>${r.data}</td><td>${r.horaEntrada}</td><td>${r.horaSaida || ''}</td><td>${r.empresa}</td><td>${r.servico}</td></tr>`;
-            });
-            relatorio += '</table>';
-            const janela = window.open('', '', 'width=900,height=700');
-            janela.document.write('<html><head><title>Relatório</title></head><body>' + relatorio + '</body></html>');
-            janela.document.close();
-        }
+    // Função para editar prestador
+    function editarPrestador(idx) {
+      const p = prestadores[idx];
+      document.getElementById('apartamento').value = p.apartamento;
+      document.getElementById('nome').value = p.nome;
+      document.getElementById('documento').value = p.documento;
+      document.getElementById('autorizador').value = p.autorizador;
+      document.getElementById('entrada').value = p.entrada.replace(' ', 'T');
+      document.getElementById('saida').value = p.saida ? p.saida.replace(' ', 'T') : '';
+      document.getElementById('empresa').value = p.empresa;
+      document.getElementById('servico').value = p.servico;
+      fotoFrente = p.fotoFrente;
+      fotoVerso = p.fotoVerso;
+      document.getElementById('fotoFrentePreview').src = fotoFrente;
+      document.getElementById('fotoVersoPreview').src = fotoVerso;
+      // Remove o registro antigo para evitar duplicidade ao salvar
+      prestadores.splice(idx, 1);
+      salvarPrestadores();
+      renderizarTabela(document.getElementById('searchInput').value);
+    }
 
-        // Ampliar foto ao clicar
-        window.ampliarFoto = function(src) {
-            // Cria overlay
-            const overlay = document.createElement('div');
-            overlay.style.position = 'fixed';
-            overlay.style.top = 0;
-            overlay.style.left = 0;
-            overlay.style.width = '100vw';
-            overlay.style.height = '100vh';
-            overlay.style.background = 'rgba(0,0,0,0.8)';
-            overlay.style.display = 'flex';
-            overlay.style.alignItems = 'center';
-            overlay.style.justifyContent = 'center';
-            overlay.style.zIndex = 9999;
-            overlay.onclick = () => document.body.removeChild(overlay);
-            // Cria imagem ampliada
-            const img = document.createElement('img');
-            img.src = src;
-            img.style.maxWidth = '90vw';
-            img.style.maxHeight = '90vh';
-            img.style.border = '8px solid #fff';
-            img.style.borderRadius = '12px';
-            img.style.boxShadow = '0 4px 32px rgba(0,0,0,0.5)';
-            overlay.appendChild(img);
-            document.body.appendChild(overlay);
-        }
-    </script>
-    <div style="position:fixed;top:10px;right:10px;z-index:10;display:flex;gap:8px;">
-        <button class="btn" onclick="exportarCSV()">Exportar CSV</button>
-        <button class="btn" onclick="exportarPDF()">Exportar PDF</button>
-        <button class="btn" onclick="mostrarRelatorio()">Relatório Salvos</button>
-    </div>
+    // Inicialização
+    window.onload = async function() {
+      await carregarCameras();
+      carregarPrestadores();
+      renderizarTabela();
+    };
+  </script>
 </body>
 </html>
