@@ -95,8 +95,32 @@
             margin: 0 2px;
         }
         @media (max-width: 900px) {
-            .container { padding: 12px; }
-            form { flex-direction: column; }
+            .container { padding: 8px; }
+            form { flex-direction: column; gap: 8px; }
+            .form-group, .photo-section { width: 100%; min-width: 0; }
+            .photo-section { flex-direction: row; justify-content: flex-start; align-items: center; gap: 8px; }
+            .photo-section label { min-width: 90px; margin-bottom: 0; }
+            .photo-preview, video { width: 80px; height: 60px; }
+            table { font-size: 0.95rem; }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 2px; }
+            h1 { font-size: 1.1rem; }
+            form { gap: 4px; }
+            .form-group, .photo-section { width: 100%; min-width: 0; }
+            .photo-section { flex-direction: column; align-items: flex-start; }
+            .photo-preview, video { width: 60px; height: 45px; }
+            table, th, td { font-size: 0.85rem; }
+            th, td { padding: 4px 2px; }
+            .btn { padding: 7px 10px; font-size: 0.95rem; }
+            .action-btns { display: flex; flex-direction: column; gap: 2px; }
+        }
+        @media (max-width: 430px) {
+            .container { padding: 0; }
+            h1 { font-size: 0.95rem; }
+            .btn { font-size: 0.85rem; padding: 6px 6px; }
+            .photo-preview, video { width: 40px; height: 30px; }
+            table, th, td { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -136,6 +160,15 @@
                 <label for="servico">Serviço</label>
                 <input type="text" id="servico" required>
             </div>
+            <div class="form-group">
+                <label for="arquivo">Arquivo</label>
+                <input type="file" id="arquivo" accept="application/pdf,image/*" onchange="mostrarNomeArquivo()">
+                <span id="arquivoSelecionado" style="font-size:0.95em;color:#2980b9;margin-top:2px;word-break:break-all;"></span>
+            </div>
+            <div class="form-group">
+                <label for="apartamento">Apartamento</label>
+                <input type="text" id="apartamento" required placeholder="Digite o número do apartamento">
+            </div>
             <div class="photo-section">
                 <label>Foto Frente</label>
                 <video id="videoFrente" width="120" height="90" autoplay style="display:none;"></video>
@@ -164,8 +197,10 @@
                     <th>Saída</th>
                     <th>Empresa</th>
                     <th>Serviço</th>
+                    <th>Arquivo</th>
                     <th>Foto Frente</th>
                     <th>Foto Traseira</th>
+                    <th>Apartamento</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -232,6 +267,14 @@
         // Salvar ou editar registro
         function salvarRegistro(e) {
             e.preventDefault();
+            const arquivoInput = document.getElementById('arquivo');
+            let arquivoUrl = '';
+            if (arquivoInput.files && arquivoInput.files[0]) {
+                arquivoUrl = URL.createObjectURL(arquivoInput.files[0]);
+            } else if (editIndex !== null) {
+                // Mantém o arquivo anterior ao editar se não for alterado
+                arquivoUrl = getRegistros()[editIndex].arquivo || '';
+            }
             const registro = {
                 nome: document.getElementById('nome').value,
                 documento: document.getElementById('documento').value,
@@ -241,8 +284,10 @@
                 horaSaida: document.getElementById('horaSaida').value,
                 empresa: document.getElementById('empresa').value,
                 servico: document.getElementById('servico').value,
+                apartamento: document.getElementById('apartamento').value,
                 fotoFrente,
-                fotoTraseira
+                fotoTraseira,
+                arquivo: arquivoUrl
             };
             let registros = getRegistros();
             if (editIndex !== null) {
@@ -272,8 +317,10 @@
                     <td>${r.horaSaida || '-'}</td>
                     <td>${r.empresa}</td>
                     <td>${r.servico}</td>
+                    <td>${r.arquivo ? `<a href='${r.arquivo}' target='_blank' style='color:#2980b9;font-weight:bold;'>Ver</a>` : '-'}</td>
                     <td>${r.fotoFrente ? `<img src='${r.fotoFrente}' width='40' style='cursor:zoom-in' onclick='ampliarFoto("${r.fotoFrente}")'>` : '-'}</td>
                     <td>${r.fotoTraseira ? `<img src='${r.fotoTraseira}' width='40' style='cursor:zoom-in' onclick='ampliarFoto("${r.fotoTraseira}")'>` : '-'}</td>
+                    <td>${r.apartamento || '-'}</td>
                     <td class="action-btns">
                         <button class="btn" style="background:#27ae60" onclick="editarRegistro(${i})">Editar</button>
                         <button class="btn" style="background:#c0392b" onclick="excluirRegistro(${i})">Excluir</button>
@@ -296,8 +343,11 @@
             document.getElementById('horaSaida').value = r.horaSaida;
             document.getElementById('empresa').value = r.empresa;
             document.getElementById('servico').value = r.servico;
+            document.getElementById('apartamento').value = r.apartamento;
             document.getElementById('fotoFrentePreview').src = r.fotoFrente;
             document.getElementById('fotoTraseiraPreview').src = r.fotoTraseira;
+            document.getElementById('arquivo').value = '';
+            document.getElementById('arquivoSelecionado').textContent = '';
             fotoFrente = r.fotoFrente;
             fotoTraseira = r.fotoTraseira;
             editIndex = index;
@@ -341,6 +391,19 @@
             editIndex = null;
             document.getElementById('salvarBtn').textContent = 'Salvar';
             document.getElementById('cancelarBtn').style.display = 'none';
+            document.getElementById('arquivo').value = '';
+            document.getElementById('arquivoSelecionado').textContent = '';
+        }
+
+        // Mostrar nome do arquivo selecionado
+        function mostrarNomeArquivo() {
+            const input = document.getElementById('arquivo');
+            const span = document.getElementById('arquivoSelecionado');
+            if (input.files && input.files[0]) {
+                span.textContent = input.files[0].name;
+            } else {
+                span.textContent = '';
+            }
         }
 
         // Exportar para CSV
